@@ -4,3 +4,4 @@ node_modules
 .metadata
 dist
 .buildResult
+tizenbrew-app/TizenBrew/Build.bat
