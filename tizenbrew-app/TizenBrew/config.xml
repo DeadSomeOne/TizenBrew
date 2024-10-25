@@ -5,7 +5,7 @@
         <tizen:src name="index.html" reload="disable"/>
         <tizen:operation name="http://samsung.com/appcontrol/operation/eden_resume"/>
     </tizen:app-control>
-    <tizen:application id="xvvl3S1bvH.TizenBrewStandalone" package="xvvl3S1bvH" required_version="3.0"/>
+    <tizen:application id="xvvl3S1bvh.TizenBrewStandalone" package="xvvl3S1bvh" required_version="3.0"/>
     <author href="https://tizentube.vercel.app">Reis Can</author>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.all"/>
@@ -31,7 +31,7 @@
     <tizen:privilege name="http://tizen.org/privilege/unlimitedstorage"/>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
     <tizen:profile name="tv-samsung"/>
-    <tizen:service id="xvvl3S1bvH.StandaloneService">
+    <tizen:service id="xvvl3S1bvh.StandaloneService">
         <tizen:content src="service/dist/index.js"/>
         <tizen:name>TizenBrewService</tizen:name>
         <tizen:description>TizenBrewService</tizen:description>
