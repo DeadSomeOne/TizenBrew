@@ -72,6 +72,7 @@ function onMessage(msg) {
                             <h3>
                                 ${module.description}
                             </h3>
+                            <h4>Version: ${module.version}</h4>
                         </div>
                     </div>
                     `;

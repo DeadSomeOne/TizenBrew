@@ -23,6 +23,7 @@ function loadModules(moduleList) {
                         description: moduleJson.description,
                         packageType: moduleJson.packageType,
                         serviceFile: moduleJson.serviceFile,
+                        version: moduleJson.version,
                         appPath: `http://127.0.0.1:8081/module/${encodeURIComponent(module)}/${moduleJson.appPath}`,
                         keys: moduleJson.keys || [],
                         moduleType: moduleMetadata.type
@@ -34,6 +35,7 @@ function loadModules(moduleList) {
                         description: moduleJson.description,
                         packageType: moduleJson.packageType,
                         serviceFile: moduleJson.serviceFile,
+                        version: moduleJson.version,
                         appPath: `http://127.0.0.1:8081/module/${encodeURIComponent(module)}/${moduleJson.appPath}`,
                         keys: moduleJson.keys || [],
                         moduleType: moduleMetadata.type
@@ -46,6 +48,7 @@ function loadModules(moduleList) {
                         appPath: moduleJson.websiteURL,
                         serviceFile: moduleJson.serviceFile,
                         packageType: moduleJson.packageType,
+                        version: moduleJson.version,
                         mainFile: moduleJson.main,
                         keys: moduleJson.keys || [],
                         tizenAppId: moduleJson.tizenAppId,
