@@ -171,6 +171,74 @@
                     var newUserAgent = `${window.navigator.userAgent}, ${deviceName}/${firmware} (Samsung, ${model}, ${connectionType})`;
                     userAgentWarnMenu(newUserAgent, false);
 
+                } else if (selectedItem.id == "AUADEVICE") {
+                    var firmware, buildString, model, platform, tizenver, chipsetModel, year, JsVer, CobaltVer, Evergreen, Starboard, unsupported = false;
+                    firmware = tizen.systeminfo.getCapability("http://tizen.org/custom/sw_version");
+                    buildString = tizen.systeminfo.getCapability("http://tizen.org/system/build.string");
+                    model = tizen.systeminfo.getCapability("http://tizen.org/system/model_name");
+                    platform = tizen.systeminfo.getCapability("http://tizen.org/system/platform.name");
+                    tizenver = buildString.split("-")[1];
+                    chipsetModel = buildString.split("-")[3];
+                    switch (tizenver) {
+                        default:
+                            alert("Your Tizen Version is not supported"); 
+                            unsupported = true
+                            break;
+                        
+                        case "5.0":
+                            year = "2019";
+                            JsVer = "6.3.292.46";
+                            CobaltVer = "20.lts.3.244012";
+                            Evergreen = "0.3.2";
+                            Starboard = "11";
+                            break;
+                        
+                        case "5.5":
+                            year = "2020";
+                            JsVer = "6.9.427.29";
+                            CobaltVer = "21.lts.7.306187";
+                            Evergreen = "1.6.1";
+                            Starboard = "12";
+                            break;
+                        
+                        case "6.0":
+                            year = "2021";
+                            JsVer = "7.7.299.8";
+                            CobaltVer = "21.lts.4.302899";
+                            Evergreen = "1.4.3";
+                            Starboard = "12";
+                            break;
+                        
+                        case "6.5":
+                            year = "2022";
+                            JsVer = "8.5.210.20";
+                            CobaltVer = "22.lts.4.307648";
+                            Evergreen = "2.4.1";
+                            Starboard = "13";
+                            break;
+                        
+                        case "7.0":
+                            year = "2023";
+                            JsVer = "9.4.146.10";
+                            CobaltVer = "23.lts.2.309559";
+                            Evergreen = "3.2.1";
+                            Starboard = "14";
+                            break;
+                        
+                        case "8.0":
+                            year = "2024";
+                            JsVer = "10.8.168.4";
+                            CobaltVer = "24.lts.10.1032622";
+                            Evergreen = "4.10.2";
+                            Starboard = "15";
+                            break;
+                    }
+                    
+                    if (unsupported)
+                        break;
+                    
+                    var newUserAgent = `Mozilla/5.0 (LINUX; ${platform}/${tizenver}/${year}.1.3) Cobalt/${CobaltVer}-gold (unlike Gecko) v8/${JsVer}-jit gles Evergreen/${Evergreen} Starboard/${Starboard}, Samsung_TV_${chipsetModel}_${year}/${firmware} (Samsung, ${model}, Wired)`;
+                    userAgentWarnMenu(newUserAgent, false);
                 }
                 break;
             case 406:
@@ -238,6 +306,9 @@
             </div>
             <div class="card" tabindex="0" id="UADEVICE">
                     <h1>${window.i18n.t('settings.uaBasedOnDevice')}</h1>
+            </div>
+            <div class="card" tabindex="0" id="AUADEVICE">
+                    <h1>Experimental ${window.i18n.t('settings.uaBasedOnDevice')}</h1>
             </div>
             <div class="card" tabindex="0" id="cobalt9">
                     <h1>Cobalt 9 ${window.i18n.t('settings.worksOnTizen', { version: 3 })}</h1>
