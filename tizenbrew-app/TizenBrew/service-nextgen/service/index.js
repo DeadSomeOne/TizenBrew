@@ -101,7 +101,7 @@ module.exports.onStart = function () {
             console.log('ADB connection established');
             //Launch app
             const tbPackageId = tizen.application.getAppInfo().packageId;
-            const shellCmd = adbClient.createStream(`shell:0 debug ${tbPackageId}.TizenBrewStandalone${isTizen3 ? ' 0' : ''}`);
+            const shellCmd = adbClient.createStream(`shell:0 debug ${tbPackageId}.TizenBrewNextGenerationDebug${isTizen3 ? ' 0' : ''}`);
             shellCmd.on('data', function dataIncoming(data) {
                 const dataString = data.toString();
                 if (dataString.includes('debug')) {
