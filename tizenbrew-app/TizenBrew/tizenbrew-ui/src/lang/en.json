@@ -38,6 +38,7 @@
         "setUaTo": "Do you want to set the User-Agent to {{userAgent}}?",
         "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
         "uaNegativeEffects": "Note that while this could have positive effects, there could also be negative effects.",
+        "uaUnsupported": "Your TV does not support this option, choose another option",
         "language": "Language Settings",
         "languageDesc": "Change the language of the app."
     },
