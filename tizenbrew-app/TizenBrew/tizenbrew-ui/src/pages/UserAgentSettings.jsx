@@ -47,6 +47,9 @@ const UserAgents = [
                 tizenver = buildString.split("-")[1],
                 chipsetModel = buildString.split("-")[3];
             switch (tizenver) {
+                default :
+                    return "NotAvailable";
+
                 case "4.0":
                     year = "2018";
                     JsVer = "5.6.326.5";
@@ -104,13 +107,9 @@ const UserAgents = [
                     break;
             }
 
-            if (year){
-                const newUserAgent = `Mozilla/5.0 (LINUX; ${platform}/${tizenver}/${year}.1.3) Cobalt/${CobaltVer}-gold (unlike Gecko) v8/${JsVer}-jit gles Evergreen/${Evergreen} Starboard/${Starboard}, Samsung_TV_${chipsetModel}_${year}/${firmware} (Samsung, ${model}, Wired)`;
-                return newUserAgent;
-            }
-            else {
-                alert("Your Tizen Version is not supported");
-            }
+            const newUserAgent = `Mozilla/5.0 (LINUX; ${platform}/${tizenver}/${year}.1.3) Cobalt/${CobaltVer}-gold (unlike Gecko) v8/${JsVer}-jit gles Evergreen/${Evergreen} Starboard/${Starboard}, Samsung_TV_${chipsetModel}_${year}/${firmware} (Samsung, ${model}, Wired)`;
+            return newUserAgent;
+
         }
     }
 ];
@@ -160,10 +159,15 @@ export default function UserAgentSettings() {
                     return (
                         <ItemBasic key={idx} onClick={() => {
                             const userAgent = typeof ua.userAgent === 'function' ? ua.userAgent() : ua.userAgent;
-                            if (confirm(`${t('settings.setUaTo', { userAgent: userAgent })}\n\n${t('settings.uaNegativeEffects')}`)) {
-                                localStorage.setItem('userAgent', userAgent);
-                                alert(t('settings.uaSetRelaunch'));
-                                tizen.application.getCurrentApplication().exit();
+                            if (userAgent === "NotAvailable"){
+                                alert(`${t('settings.uaUnsupported')}`)
+                            }
+                            else {
+                                if (confirm(`${t('settings.setUaTo', { userAgent: userAgent })}\n\n${t('settings.uaNegativeEffects')}`)) {
+                                    localStorage.setItem('userAgent', userAgent);
+                                    alert(t('settings.uaSetRelaunch'));
+                                    tizen.application.getCurrentApplication().exit();
+                                }
                             }
                         }} shouldFocus={idx === 0}>
                             <h3 className='text-indigo-400 text-base/7 font-semibold'>
