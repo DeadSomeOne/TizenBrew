@@ -30,6 +30,7 @@
         "enableAutolaunchPrompt": "Do you want to set {{packageName}} to launch on start?",
         "disableAutolaunchPrompt": "Do you want to disable autolaunch?",
         "disableAutolaunch": "Disable Autolaunch",
+        "FullUaBasedOnDevice": "Full user-Agent based on Device (should bring more features, but breaks others)",
         "noModules": "No modules found.",
         "default": "Default",
         "worksOnTizen": "(Works on Tizen {{version}}+)",
