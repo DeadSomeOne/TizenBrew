@@ -39,13 +39,24 @@ const UserAgents = [
     {
         name: 'settings.FullUaBasedOnDevice',
         userAgent: () => {
-            let year, JsVer, CobaltVer, Evergreen, Starboard;
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://127.0.0.1:8001/api/v2/", false);
+            xhr.send();
+			
+            let year, JsVer, CobaltVer, Evergreen, Starboard, apiData = {};
+
+            try {
+                apiData = JSON.parse(xhr.responseText);
+            } catch (e) {
+                alert("Failed to parse API response:", e);
+            }
+			
             const firmware = tizen.systeminfo.getCapability("http://tizen.org/custom/sw_version"),
-                buildString = tizen.systeminfo.getCapability("http://tizen.org/system/build.string"),
                 model = tizen.systeminfo.getCapability("http://tizen.org/system/model_name"),
                 platform = tizen.systeminfo.getCapability("http://tizen.org/system/platform.name"),
-                tizenver = buildString.split("-")[1],
-                chipsetModel = buildString.split("-")[3];
+                tizenver = tizen.systeminfo.getCapability("http://tizen.org/feature/platform.version"),
+                chipsetModel = apiData.device.model.split("_")[1];
+			
             switch (tizenver) {
                 default :
                     return "NotAvailable";
