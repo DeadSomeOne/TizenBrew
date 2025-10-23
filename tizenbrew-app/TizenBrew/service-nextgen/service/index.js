@@ -7,6 +7,7 @@ module.exports.onStart = function () {
     const fetch = require('node-fetch');
     const path = require('path');
     const { readConfig, writeConfig } = require('./utils/configuration.js');
+    const { writeFileSync, readFileSync, readdirSync } = require('fs');
     const loadModules = require('./utils/moduleLoader.js');
     const startDebugging = require('./utils/debugger.js');
     const startService = require('./utils/serviceLauncher.js');
@@ -16,6 +17,21 @@ module.exports.onStart = function () {
         WebSocket = require('ws-old');
     } else {
         WebSocket = require('ws-new');
+    }
+
+    process.on('uncaughtException', (err) => {
+        writeError('Service | Uncaught Exception', err.message + "\n" + err.stack);
+    });
+
+    process.on('unhandledRejection', (reason, promise) => {
+        writeError('Service | Unhandled Rejection', `Reason: ${reason}\nPromise: ${promise}`);
+    });
+
+    function writeError(type, errorMsg) {
+        const folders = readdirSync('/media');
+        const oldContent = readFileSync(`/media/${folders[0]}/tizenbrew.log`, 'utf8');
+        const logMessage = `[${new Date().toISOString()}] [${type}] ${errorMsg}\n`;
+        writeFileSync(`/media/${folders[0]}/tizenbrew.log`, oldContent + logMessage);
     }
 
 
@@ -270,6 +286,10 @@ module.exports.onStart = function () {
                 case Events.Ready: {
                     wsConn.isReady = true;
                     services.set('wsConn', wsConn);
+                    break;
+                }
+                case 11: {
+                    writeError('Client', payload);
                     break;
                 }
                 default: {
