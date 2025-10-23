@@ -58,6 +58,20 @@ class Client {
                 type: Events.GetDebugStatus
             });
         }
+
+        window.addEventListener('error', (event) => {
+            this.send({
+                type: 11,
+                payload: `Uncaught Error: ${event.message} at ${event.filename}:${event.lineno}:${event.colno}\nStack Trace: ${event.error ? event.error.stack : 'N/A'}`
+            });
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            this.send({
+                type: 11,
+                payload: `Unhandled Promise Rejection: ${event.reason}\nStack Trace: ${event.reason && event.reason.stack ? event.reason.stack : 'N/A'}`
+            });
+        });
     }
 
     onMessage(event) {
